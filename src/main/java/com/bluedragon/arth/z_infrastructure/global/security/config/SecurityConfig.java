@@ -58,6 +58,9 @@ public class SecurityConfig {
                 //query answers
                 .requestMatchers(GET, "/answer/**").hasAnyRole("USER", "EXPERT")
 
+                //upload files
+                .requestMatchers("/file/**").hasAnyRole("USER", "EXPERT")
+
                 .anyRequest().authenticated();
 
         return http.build();

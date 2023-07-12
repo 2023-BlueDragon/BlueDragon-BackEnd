@@ -20,9 +20,9 @@ public class FileController {
     private final FileUploadService fileUploadService;
 
     @Operation(description = "File(List) 업로드")
-    @PostMapping
+    @PostMapping("/list")
     @ResponseStatus(OK)
-    public List<String> uploadFile(@RequestPart("fileList") List<MultipartFile> multipartFileList) {
+    public List<String> uploadFile(final @RequestPart("fileList") List<MultipartFile> multipartFileList) {
         return fileUploadService.uploadFileList(multipartFileList);
     }
 

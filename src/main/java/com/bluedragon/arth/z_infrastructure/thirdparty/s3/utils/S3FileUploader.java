@@ -7,6 +7,7 @@ import com.bluedragon.arth.z_infrastructure.thirdparty.s3.exception.FileConvertE
 import com.bluedragon.arth.z_infrastructure.thirdparty.s3.exception.FileUploadException;
 import com.bluedragon.arth.z_infrastructure.thirdparty.s3.properties.S3Properties;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class S3FileUploader {
@@ -37,6 +39,8 @@ public class S3FileUploader {
 
             return getUrl(fileName);
         } catch (IOException e) {
+            e.printStackTrace();
+            log.info(e.getMessage());
             throw FileUploadException.EXCEPTION;
         }
     }
@@ -49,15 +53,14 @@ public class S3FileUploader {
         amazonS3.deleteObject(s3Properties.getBucket(), path);
     }
 
-    private Optional<File> convert(final MultipartFile file) throws IOException {
-        File convertFile = new File(System.getProperty("user.home") + file.getOriginalFilename());
-        if (convertFile.createNewFile()) {
-            try (FileOutputStream fos = new FileOutputStream(convertFile)) {
-                fos.write(file.getBytes());
-            }
-            return Optional.of(convertFile);
+    private Optional<File> convert(MultipartFile file) throws IOException {
+        File convertFile = File.createTempFile("amazons3", file.getOriginalFilename()); // new File(System.getProperty("user.home") + file.getOriginalFilename());
+
+        try (FileOutputStream fos = new FileOutputStream(convertFile)) {
+            fos.write(file.getBytes());
         }
-        return Optional.empty();
+
+        return Optional.of(convertFile);
     }
 
     private String makefileName(final String convertFileName) {

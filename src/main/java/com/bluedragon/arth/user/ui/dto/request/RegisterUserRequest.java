@@ -9,4 +9,5 @@ public record RegisterUserRequest(
         String email,
         @NotNull @Size(min = 8, max = 255)
         String passWord,
+        String name,
         String nickName) {}

@@ -23,6 +23,7 @@ public class UserService {
         return userJpaRepository.save(User.builder()
                 .email(request.email())
                 .passWord(passwordEncoder.encode(request.passWord()))
+                .name(request.name())
                 .nickName(request.nickName())
                 .userRole(UserRole.USER)
                 .build());
@@ -33,6 +34,7 @@ public class UserService {
         return userJpaRepository.save(User.builder()
                 .email(request.email())
                 .passWord(passwordEncoder.encode(request.passWord()))
+                .name(request.name())
                 .nickName(request.nickName())
                 .major(request.major())
                 .userRole(UserRole.EXPERT)

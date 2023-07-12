@@ -1,6 +1,6 @@
 package com.bluedragon.arth.user.application;
 
-import com.bluedragon.arth.z_global.security.principle.CustomUserDetails;
+import com.bluedragon.arth.z_infrastructure.global.security.principle.CustomUserDetails;
 import com.bluedragon.arth.user.domain.entity.User;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

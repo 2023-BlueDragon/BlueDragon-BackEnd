@@ -9,6 +9,7 @@ public record RegisterExpertRequest(
         String email,
         @NotNull @Size(min = 8, max = 255)
         String passWord,
+        String name,
         String nickName,
         @NotNull(message = "전공을 입력해주세요")
         String major) {}

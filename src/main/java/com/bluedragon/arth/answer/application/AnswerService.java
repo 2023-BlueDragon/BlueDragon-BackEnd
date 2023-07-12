@@ -33,6 +33,7 @@ public class AnswerService {
                 .answer(request.answer())
                 .writer(user)
                 .question(question)
+                .fileUrlList(request.fileUrlList())
                 .build()));
     }
 

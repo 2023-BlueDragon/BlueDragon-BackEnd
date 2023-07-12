@@ -23,6 +23,7 @@ public class UserController {
     @PostMapping
     @ResponseStatus(CREATED)
     public User registerUser(@RequestBody RegisterUserRequest request) {
+        System.out.println(request.email());
         return userService.registerUser(request);
     }
 

@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tbl_question")
 @Getter
@@ -26,6 +28,9 @@ public class Question extends BaseTimeEntity {
     @NotNull
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    private List<String> fileUrlList;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)

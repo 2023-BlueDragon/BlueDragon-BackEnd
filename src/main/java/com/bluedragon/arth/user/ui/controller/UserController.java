@@ -30,6 +30,7 @@ public class UserController {
     @PostMapping("/expert")
     @ResponseStatus(CREATED)
     public User registerExpert(@RequestBody RegisterExpertRequest request) {
+        System.out.println(request.email());
         return userService.registerExpert(request);
     }
 

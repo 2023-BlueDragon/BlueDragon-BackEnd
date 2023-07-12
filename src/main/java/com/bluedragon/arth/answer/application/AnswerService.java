@@ -3,6 +3,7 @@ package com.bluedragon.arth.answer.application;
 import com.bluedragon.arth.answer.domain.entity.Answer;
 import com.bluedragon.arth.answer.domain.repository.AnswerJpaRepository;
 import com.bluedragon.arth.answer.ui.dto.request.RegisterAnswerRequest;
+import com.bluedragon.arth.answer.ui.dto.response.AnswerByQuestionResponse;
 import com.bluedragon.arth.answer.ui.dto.response.AnswerResponse;
 import com.bluedragon.arth.answer.ui.dto.response.MyAnswerResponse;
 import com.bluedragon.arth.question.application.QuestionFacade;
@@ -39,6 +40,12 @@ public class AnswerService {
     public List<MyAnswerResponse> getMy() {
         return answerJpaRepository.findByWriter(userFacade.getCurrentUser()).stream()
                 .map(MyAnswerResponse::toResponse).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<AnswerByQuestionResponse> getByQuestion(final long questionId) {
+        return answerJpaRepository.findByQuestion(questionFacade.getById(questionId)).stream()
+                .map(AnswerByQuestionResponse::toResponse).toList();
     }
 
 }

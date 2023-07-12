@@ -12,7 +12,7 @@ public class SwaggerConfig {
     @Bean
     public GroupedOpenApi swaggerApi() {
         return GroupedOpenApi.builder()
-                .group("v2")
+                .group("v1")
                 .pathsToMatch("/**")
                 .build();
     }
@@ -25,9 +25,9 @@ public class SwaggerConfig {
 
     private Info info() {
         return new Info()
-                .title("Rolling")
-                .description("Rolling Api Docs")
-                .version("V2");
+                .title("Arth")
+                .description("Arth Api Docs")
+                .version("V1");
     }
 
 }

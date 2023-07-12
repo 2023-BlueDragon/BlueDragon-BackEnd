@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Entity
@@ -25,7 +24,7 @@ public class User extends BaseTimeEntity {
     @JsonIgnore
     private String passWord;
 
-    @Size(min = 3, max = 30)
+    @NotNull
     @Column(unique = true)
     private String nickName;
 

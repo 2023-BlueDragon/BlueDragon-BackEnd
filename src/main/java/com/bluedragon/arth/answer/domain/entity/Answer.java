@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tbl_answer")
 @Getter
@@ -22,6 +24,9 @@ public class Answer extends BaseTimeEntity {
     @NotNull
     @Column(columnDefinition = "TEXT")
     private String answer;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    private List<String> fileUrlList;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)

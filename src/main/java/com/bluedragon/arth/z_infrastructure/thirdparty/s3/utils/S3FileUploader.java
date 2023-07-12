@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class FileUploader {
+public class S3FileUploader {
 
     private final AmazonS3 amazonS3;
     private final S3Properties s3Properties;

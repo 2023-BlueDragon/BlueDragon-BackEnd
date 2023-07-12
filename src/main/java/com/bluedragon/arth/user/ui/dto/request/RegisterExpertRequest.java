@@ -1,15 +1,16 @@
 package com.bluedragon.arth.user.ui.dto.request;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 public record RegisterExpertRequest(
         @NotNull @Email
         String email,
-        @NotNull @Size(min = 8, max = 255)
+        @NotBlank
         String passWord,
         String name,
+        @NotBlank
         String nickName,
-        @NotNull(message = "전공을 입력해주세요")
+        @NotBlank
         String major) {}

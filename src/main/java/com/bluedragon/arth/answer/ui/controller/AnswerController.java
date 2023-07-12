@@ -2,6 +2,7 @@ package com.bluedragon.arth.answer.ui.controller;
 
 import com.bluedragon.arth.answer.application.AnswerService;
 import com.bluedragon.arth.answer.ui.dto.request.RegisterAnswerRequest;
+import com.bluedragon.arth.answer.ui.dto.response.AnswerByQuestionResponse;
 import com.bluedragon.arth.answer.ui.dto.response.AnswerResponse;
 import com.bluedragon.arth.answer.ui.dto.response.MyAnswerResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,6 +35,12 @@ public class AnswerController {
     @ResponseStatus(OK)
     public List<MyAnswerResponse> getMy() {
         return answerService.getMy();
+    }
+
+    @Operation(description = "Question에 해당하는 Answer List 조회")
+    @GetMapping("/list/question/{questionId}")
+    public List<AnswerByQuestionResponse> getByQuestion(final @PathVariable long questionId) {
+        return answerService.getByQuestion(questionId);
     }
 
 }

@@ -31,6 +31,13 @@ public class QuestionController {
         return questionService.register(request);
     }
 
+    @Operation(description = "Question 단건 조회")
+    @GetMapping("/{questionId}")
+    @ResponseStatus(OK)
+    public Question getById(final @PathVariable int questionId) {
+        return questionService.getById(questionId);
+    }
+
     @Operation(description = "내 Question List 조회")
     @GetMapping("/my")
     @ResponseStatus(OK)
@@ -41,8 +48,15 @@ public class QuestionController {
     @Operation(description = "모든 Question List 조회(Paging)")
     @GetMapping("/all")
     @ResponseStatus(OK)
-    public Page<Question> getAll(@ModelAttribute PageDataRequest pageRequest) {
-        return questionService.getAll(pageRequest);
+    public Page<Question> getAll(@ModelAttribute PageDataRequest request) {
+        return questionService.getAll(request);
+    }
+
+    @Operation(description = "KeyWord로 Question 검색(Paging)")
+    @GetMapping("/search")
+    @ResponseStatus(OK)
+    public Page<Question> searchByKeyWord(final @RequestParam("keyWord") String keyWord, @ModelAttribute PageDataRequest request) {
+        return questionService.searchByKeyWord(keyWord, request);
     }
 
 }

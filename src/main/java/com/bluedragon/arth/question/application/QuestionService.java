@@ -20,6 +20,7 @@ import java.util.List;
 public class QuestionService {
 
     private final UserFacade userFacade;
+    private final QuestionFacade questionFacade;
     private final QuestionJpaRepository questionJpaRepository;
 
     @Transactional(rollbackFor = Exception.class)
@@ -27,8 +28,14 @@ public class QuestionService {
         return questionJpaRepository.save(Question.builder()
                 .title(request.title())
                 .content(request.content())
+                .fileUrlList(request.fileUrlList())
                 .writer(userFacade.getCurrentUser())
                 .build());
+    }
+
+    @Transactional(readOnly = true)
+    public Question getById(final int questionId) {
+        return questionFacade.getById(questionId);
     }
 
     @Transactional(readOnly = true)
@@ -39,10 +46,21 @@ public class QuestionService {
 
     @Transactional(readOnly = true)
     public Page<Question> getAll(PageDataRequest pageDataRequest) {
-        PageRequest pageRequest = PageRequest.of(pageDataRequest.page(), pageDataRequest.size(),
-                Sort.by(Sort.Direction.DESC, "createdAt"));
+        PageRequest pageRequest = getPageRequestOrderByCreatedAtDesc(pageDataRequest);
 
         return questionJpaRepository.findAll(pageRequest);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Question> searchByKeyWord(final String keyWord, PageDataRequest pageDataRequest) {
+        PageRequest pageRequest = getPageRequestOrderByCreatedAtDesc(pageDataRequest);
+
+        return questionJpaRepository.findByTitleContainingOrContentContaining(keyWord, keyWord, pageRequest);
+    }
+
+    private PageRequest getPageRequestOrderByCreatedAtDesc(PageDataRequest request) {
+        return PageRequest.of(request.page(), request.size(),
+                Sort.by(Sort.Direction.DESC, "createdAt"));
     }
 
 }
